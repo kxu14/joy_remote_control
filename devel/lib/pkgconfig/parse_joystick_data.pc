@@ -1,0 +1,8 @@
+prefix=/home/kxu14/catkin_ws/devel
+
+Name: parse_joystick_data
+Description: Description of parse_joystick_data
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy sensor_msgs
