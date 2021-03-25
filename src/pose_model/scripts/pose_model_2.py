@@ -22,6 +22,7 @@ def callback(data):
 	)
 	
 	markerArray.markers.append(marker)
+	break
 
 def main():
     global markerArray
