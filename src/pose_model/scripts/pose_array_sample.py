@@ -23,12 +23,12 @@ while not rospy.is_shutdown():
 	   pose.position.y = 0
 	   pose.position.z = i/2
 	   pose.orientation.x = 0
-	   pose.orientation.y = 0.7071
-	   pose.orientation.z = 0.7071
+	   pose.orientation.y = 0
+	   pose.orientation.z = 1
 	   pose.orientation.w = 0
 
 	   ps.poses.append( pose )
-
+	   '''
 	   pose = Pose()
 	   pose.position.x = i/2
 	   pose.position.y = 0
@@ -38,7 +38,7 @@ while not rospy.is_shutdown():
 	   pose.orientation.z = 0
 	   pose.orientation.w = 0
 
-	   ps.poses.append( pose )
+	   ps.poses.append( pose )'''
 
 	   publisher.publish( ps )
 

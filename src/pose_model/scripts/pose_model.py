@@ -27,7 +27,6 @@ def main():
     rospy.init_node('basic_shapes', anonymous=True)
 
     markerPub = rospy.Publisher('visualization_marker_array', MarkerArray, queue_size=10)
-		#name of publisher cannot change
     #rospy.Subscriber('pose_array', PoseArray, callback)
     rate = rospy.Rate(1)  # 1Hz
 
