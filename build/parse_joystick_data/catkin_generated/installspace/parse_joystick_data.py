@@ -11,6 +11,7 @@ y_pos = 8.0
 z_pos = 43.0
 
 def joy_cb(data):
+    global x_dot, y_dot, z_dot
     if data.buttons[4] == True:
 	x_dot = data.axes[1]
 	y_dot = data.axes[4]
@@ -23,6 +24,7 @@ def joy_cb(data):
     return
 
 def main():
+    global x_dot, y_dot, z_dot
     rospy.init_node('parse_joystick_data', anonymous = True)
     rospy.Subscriber('joy', Joy, joy_cb)
     pos_pub = rospy.Publisher('instrument_pos', Float32MultiArray, queue_size=1)
