@@ -9,29 +9,53 @@ xcoords = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ycoords = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 zcoords = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-def x_pos_cb(x_pos_data):
+xorien = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+yorien = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+zorien = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+qorien = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+def x_pos(x_pos):
     global xcoords
-    xcoords = x_pos_data.data
-    '''print x_pos_data.data
-    print xcoords
-    print xcoords[4]'''
+    xcoords = x_pos.data
 
-def y_pos_cb(y_pos_data):
+def y_pos(y_pos):
     global ycoords
-    ycoords = y_pos_data.data
+    ycoords = y_pos.data
 
-def z_pos_cb(z_pos_data):
+def z_pos(z_pos):
     global zcoords
-    zcoords = z_pos_data.data
+    zcoords = z_pos.data
+
+def x_orien(x_orien):
+    global xorien
+    xorien = x_orien.data
+
+def y_orien(y_orien):
+    global yorien
+    yorien = y_orien.data
+
+def z_orien(z_orien):
+    global zorien
+    zorien = z_orien.data
+
+def q_orien(q_orien):
+    global qorien
+    qorien = q_orien.data
 
 def main():
-    global xcoords, ycoords, zcoords
+    global xcoords, ycoords, zcoords, xorien, yorien, zorien, qorien
     rospy.init_node('pose_model', anonymous=True)
 
     markerPub = rospy.Publisher('visualization_marker_array', MarkerArray, queue_size=10)
-    rospy.Subscriber('disks_posx', Float32MultiArray, x_pos_cb)
-    rospy.Subscriber('disks_posy', Float32MultiArray, y_pos_cb)
-    rospy.Subscriber('disks_posz', Float32MultiArray, z_pos_cb)
+    rospy.Subscriber('disks_posx', Float32MultiArray, x_pos)
+    rospy.Subscriber('disks_posy', Float32MultiArray, y_pos)
+    rospy.Subscriber('disks_posz', Float32MultiArray, z_pos)
+
+    rospy.Subscriber('disks_orienx', Float32MultiArray, x_orien)
+    rospy.Subscriber('disks_orieny', Float32MultiArray, y_orien)
+    rospy.Subscriber('disks_orienz', Float32MultiArray, z_orien)
+    rospy.Subscriber('disks_orienq', Float32MultiArray, q_orien)
+
     rate = rospy.Rate(1)  # 1Hz
 
     while not rospy.is_shutdown():
@@ -42,9 +66,9 @@ def main():
 			id=i,
 			type=Marker.CYLINDER,
 			action=Marker.ADD,
-			pose = Pose(Point(xcoords[i], ycoords[i], zcoords[i]), Quaternion(0,0,1,0)),
+			pose = Pose(Point(xcoords[i]/4, ycoords[i]/4, zcoords[i]/4), Quaternion(xorien[i], yorien[i], zorien[i], qorien[i])),
 			scale=Vector3(0.5, 0.5, 0.1),
-			color=ColorRGBA(0, 1, 0, 1),
+			color=ColorRGBA(1, 0.25, 1, 1),
 			lifetime=rospy.Duration()
 		)
 	
